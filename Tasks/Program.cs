@@ -212,6 +212,7 @@ void Task58()
     {
         size = matrix2.GetLength(1);
     }
+    
     void PrintTwoMatrix(int[,] inputMatrix1, int[,] inputMatrix2, int size)
     {
         for (int i = 0; i < inputMatrix1.GetLength(0); i++)
@@ -220,14 +221,21 @@ void Task58()
             {
                 Console.Write(inputMatrix1[i, j] + " ");
             }
+            
             Console.Write(" |  ");
             for (int k = 0; k < inputMatrix2.GetLength(1); k++)
             {
-                Console.Write(inputMatrix2[i, k] + " ");
+                if (i < inputMatrix2.GetLength(0)) // додбавил if чтобы вывести второй массив с меншими строками
+                {
+                    Console.Write(inputMatrix2[i, k] + " ");
+                } else {
+                    continue;
+                }
             }
             Console.WriteLine();
         }
     }
+    Console.Clear();
     PrintTwoMatrix(matrix1, matrix2, size);
     int[,] multiplyMatrix(int[,] matrix1, int[,] matrix2, int size)
     {
@@ -235,11 +243,18 @@ void Task58()
         int[,] multiply = new int[matrix1.GetLength(0), size];
         for (int i = 0; i < multiply.GetLength(0); i++)
         {
-            for (int j = 0; j <= size - 1; j++)
+            for (int j = 0; j < size; j++) // = s-1
             {
                 for (int x = 0; x < multiply.GetLength(0); x++)
                 {
-                    multiply[i, j] += matrix1[i, x] * matrix2[x, j];
+                    if (x < matrix2.GetLength(0))
+                    {
+                        multiply[i, j] += matrix1[i, x] * matrix2[x, j];
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
             }
         }
